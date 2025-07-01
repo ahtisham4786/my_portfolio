@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ali Ahtisham – The Digital Creator Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#a855f7',
+            dark: '#0f172a',
+            light: '#f8fafc',
+            accent: '#ec4899'
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif']
+          },
+          animation: {
+            'fill-right': 'fillRight 1.5s forwards',
+            'pulse-glow': 'pulseGlow 2s infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'float-delay-2': 'float 6s ease-in-out infinite 0.2s',
+            'float-delay-4': 'float 6s ease-in-out infinite 0.4s',
+            'rotate-slow': 'rotate 20s linear infinite',
+            'shadow-glow': 'shadowGlow 2s ease-in-out infinite',
+            'count-up': 'countUp 2s forwards'
+          },
+          keyframes: {
+            fillRight: {
+              '0%': { width: '0%' },
+              '100%': { width: 'var(--progress)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { 'box-shadow': '0 0 0 0 rgba(99, 102, 241, 0.7)' },
+              '50%': { 'box-shadow': '0 0 20px 10px rgba(99, 102, 241, 0)' }
+            },
+            shadowGlow: {
+              '0%, 100%': { 'box-shadow': '0 0 10px rgba(99, 102, 241, 0.3)' },
+              '50%': { 'box-shadow': '0 0 20px rgba(99, 102, 241, 0.6)' }
+            },
+            countUp: {
+              '0%': { content: '"0%"' },
+              '100%': { content: 'var(--target)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- GSAP CDN for animations and scroll effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #6366f1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a855f7;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+    }
+
+    .navbar {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(12px);
+    }
+
+    .navbar.scrolled {
+      background: rgba(15, 23, 42, 0.92);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    .card {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02) rotateX(2deg);
+      box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+    }
+
+    .project-tag {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: #c7d2fe;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-tag:hover {
+      background: rgba(99, 102, 241, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .blob {
+      position: absolute;
+      filter: blur(60px);
+      opacity: 0.2;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .text-gradient {
+      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    }
+
+    /* New Rating Bar Styles */
+    .skill-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+
+    }
+
+    /* Mobile Enhance CSS */
+@media (max-width: 767px) {
+  .mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  }
+    .skill-name {
+      color: #f8fafc;
+      font-size: 0.875rem;
+    }
+    
+    .skill-percent {
+      color: #6366f1;
+      font-weight: 500;
+    }
+    
+    .progress-container {
+      height: 6px;
+      background: rgba(248, 250, 252, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      position: relative;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      width: 0;
+      transition: width 1.5s ease-out;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      animation: shine 2s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Input focus effect */
+    .input-focus-effect:focus {
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+      border-color: #6366f1;
+    }
+
+    /* Contact links hover effect */
+    .contact-link:hover {
+      transform: translateY(-3px);
+      color: #6366f1;
+    }
+
+    /* Keyframes for animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Navbar links with Orbitron font */
+    .nav-link {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+    }
+
+    /* Vertical stat cards */
+    .stat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(248, 250, 252, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), transparent);
+      z-index: -1;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: rgba(248, 250, 252, 0.7);
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- Floating Blobs Background -->
+  <div class="blob w-80 h-80 bg-primary top-20 -left-20 animate-float"></div>
+  <div class="blob w-96 h-96 bg-secondary -bottom-40 -right-40 animate-float-delay-2"></div>
+  <div class="blob w-64 h-64 bg-accent top-1/2 left-1/3 animate-float-delay-4"></div>
+  <!-- Add preconnect for CDNs -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar fixed top-0 left-0 w-full z-50 py-4 px-6">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="#" class="text-2xl font-bold text-gradient" style="font-family: 'Orbitron', sans-serif;">
+      Meet with Ali Ahtisham
+    </a>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="#home" class="nav-link text-gradient hover:text-primary transition-all duration-300 relative group">
+        HOME
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#about" class="nav-link text-gradient hover:text-primary transition-all duration-300 relative group">
+        ABOUT
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#skills" class="nav-link text-gradient hover:text-primary transition-all duration-300 relative group">
+        SKILLS
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#portfolio" class="nav-link text-gradient hover:text-primary transition-all duration-300 relative group">
+        WORK
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#contact" class="nav-link text-gradient hover:text-primary transition-all duration-300 relative group">
+        CONTACT
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+      </a>
+    </div>
+    
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden text-light focus:outline-none">
+      <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden mobile-menu hidden">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="nav-link text-light hover:text-primary transition-all duration-300 py-2 border-b border-light/10">
+          HOME
+        </a>
+        <a href="#about" class="nav-link text-light hover:text-primary transition-all duration-300 py-2 border-b border-light/10">
+          ABOUT
+        </a>
+        <a href="#skills" class="nav-link text-light hover:text-primary transition-all duration-300 py-2 border-b border-light/10">
+          SKILLS
+        </a>
+        <a href="#portfolio" class="nav-link text-light hover:text-primary transition-all duration-300 py-2 border-b border-light/10">
+          WORK
+        </a>
+        <a href="#contact" class="nav-link text-light hover:text-primary transition-all duration-300 py-2">
+          CONTACT
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <!-- Hero Section -->
+  <section id="home" class="section min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="container mx-auto px-6 text-center relative z-10">
+      <div class="mb-8 animate-pulse">
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">
+        <span class="text-gradient">Hi! I am Ali Ahtisham</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-light/80 mb-8 max-w-2xl mx-auto">
+        Creative vision, visual design, and clean code — all in one place.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#portfolio" class="btn-primary text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300">
+          View My Work
+        </a>
+        <a href="#contact" class="border border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary/10 transition-all duration-300">
+          Contact Me
+        </a>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <a href="#about" class="text-light/50 hover:text-primary transition-colors duration-300">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section py-20 gradient-bg">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+        <span class="text-gradient">About Me</span>
+      </h2>
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2 relative">
+          <div class="relative group">
+            <!-- Your image will go here -->
+           <div class="lg:w-1/3 relative">
+  <div class="relative group ml-auto" id="image-container" style="width: fit-content; margin-right: 20px;">
+    <div class="w-[400px] h-[350px] bg-dark/100 rounded-xl shadow-2x1 flex items-center justify-center overflow-hidden">
+      <img src="https://i.pinimg.com/736x/7b/d8/f9/7bd8f949d9d37457043f3d5ed9763b19.jpg" 
+           alt="Ali Ahtisham" 
+           class="w-full h-full object-cover rounded-xl border-2 border-light/10" 
+           loading="lazy" 
+           decoding="async" 
+           width="400" 
+           height="350">
+    </div>
+  </div>
+  <!-- Stat cards code -->
+</div>
+          </div>
+          <div class="mt-8 grid grid-cols-3 gap-4">
+            <div class="stat-card">
+              <div class="stat-number">20+</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">4+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">90%</div>
+              <div class="stat-label">Satisfaction</div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <h3 class="text-2xl font-bold mb-6 text-gradient">Creative Developer, Video Editor & Graphic Designer</h3>
+          <div class="space-y-4 text-light/80">
+            <p>
+              Hi, I'm <span class="text-primary font-medium">Ali Ahtisham</span>, a passionate creative professional with expertise in both design and development. I specialize in creating visually stunning and highly functional digital experiences.
+            </p>
+            <p>
+              With over 4+ years of experience, I've helped numerous clients transform their ideas into reality through innovative design solutions and robust technical implementations.
+            </p>
+            <p>
+              My approach combines artistic vision with technical precision, ensuring that every project not only looks amazing but also performs flawlessly across all platforms.
+            </p>
+          </div>
+          <div class="mt-8">
+            <a href="#contact" class="inline-flex items-center text-primary font-medium group hover:text-secondary transition-colors duration-300">
+              Get in touch
+              <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section py-20 relative overflow-hidden">
+    <div class="blob w-[500px] h-[500px] bg-primary/10 -top-1/2 -right-1/4 animate-rotate-slow"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+        <span class="text-gradient">My Skills</span>
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Design Skills -->
+        <div class="card bg-dark/50 border border-light/10 rounded-xl p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-500">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-light">Graphic Designing</h3>
+          </div>
+          <div class="space-y-6">
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">Adobe Photoshop</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="90"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">Adobe Illustrator</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">Figma</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="80"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Skills -->
+        <div class="card bg-dark/50 border border-light/10 rounded-xl p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-secondary/20 transition-all duration-500">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-light">Video Editing</h3>
+          </div>
+          <div class="space-y-6">
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">Premiere Pro</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="88"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">After Effects</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">DaVinci Resolve</span>
+                <span class="skill-percent">75%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="75"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Development Skills -->
+        <div class="card bg-dark/50 border border-light/10 rounded-xl p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-accent/20 transition-all duration-500">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-light">Development</h3>
+          </div>
+          <div class="space-y-6">
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">HTML/CSS/JS</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="95"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">React</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-container">
+              <div class="skill-info">
+                <span class="skill-name">Node.js</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" data-width="80"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section py-20 gradient-bg">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
+        <span class="text-gradient">My Work</span>
+      </h2>
+      <p class="text-center text-light/80 max-w-2xl mx-auto mb-12">
+        Here's a selection of my recent projects. Each one was carefully crafted to solve specific problems and deliver exceptional results.
+      </p>
+      
+      <div class="flex justify-center flex-wrap gap-3 mb-12">
+        <button data-filter="all" class="filter-btn px-5 py-2 rounded-full bg-primary text-white font-medium hover:shadow-lg transition-all duration-300">All</button>
+        <button data-filter="design" class="filter-btn px-5 py-2 rounded-full bg-dark/50 border border-light/10 text-light hover:bg-primary/10 hover:border-primary/30 transition-all duration-300">Design</button>
+        <button data-filter="video" class="filter-btn px-5 py-2 rounded-full bg-dark/50 border border-light/10 text-light hover:bg-primary/10 hover:border-primary/30 transition-all duration-300">Video</button>
+        <button data-filter="development" class="filter-btn px-5 py-2 rounded-full bg-dark/50 border border-light/10 text-light hover:bg-primary/10 hover:border-primary/30 transition-all duration-300">Development</button>
+      </div>
+
+      <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Projects will be loaded here dynamically -->
+      </div>
+
+      <div class="text-center mt-12">
+        <button id="load-more" class="px-8 py-3 rounded-full border border-primary text-primary font-medium hover:bg-primary/10 hover:shadow-lg transition-all duration-300">
+          Load More Projects
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section py-20 relative overflow-hidden">
+    <div class="blob w-[600px] h-[600px] bg-secondary/10 -bottom-1/3 -left-1/3 animate-rotate-slow"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
+        <span class="text-gradient">Get In Touch</span>
+      </h2>
+      <p class="text-center text-light/80 max-w-2xl mx-auto mb-12">
+        Got a project in mind or an idea waiting to grow? I’m here to help — Video, Design, Code — all in one place. Let’s bring your vision to life.Feel free to reach out—whether for a collaboration, a tech discussion, or just to say hello! I'm always open to new ideas and opportunities.
+      </p>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-bold mb-6 text-gradient">Contact Information</h3>
+            <div class="space-y-6">
+              <div class="flex items-start contact-link group transition-all duration-300">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-primary/20">
+                  <svg class="w-5 h-5 text-primary group-hover:text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gradient mb-1">Email</h4>
+                  <a href="mailto:kingdom4786@gmail.com" target="_blank" class="text-light/70 hover:text-primary transition-colors duration-300">kingdom4786@gmail.com</a>
+                </div>
+              </div>
+              <div class="flex items-start contact-link group transition-all duration-300">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-primary/20">
+                  <svg class="w-5 h-5 text-primary group-hover:text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gradient mb-1">Phone</h4>
+                  <a href="https://wa.me/923120656042" target="_blank" class="text-light/70 hover:text-primary transition-colors duration-300">+92 3120656042</a>
+                </div>
+              </div>
+              <div class="flex items-start contact-link group transition-all duration-300">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-primary/20">
+                  <svg class="w-5 h-5 text-primary group-hover:text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gradient mb-1">Location</h4>
+                  <a href="https://maps.google.com/?q=Islamabad,Pakistan" target="_blank" class="text-light/70 hover:text-primary transition-colors duration-300">Islamabad, Pakistan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-dark/50 border border-light/10 rounded-xl p-8 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-500">
+  <h3 class="text-2xl font-bold mb-6 text-gradient">Send Me a Message</h3>
+  <form id="contact-form" action="https://formsubmit.co/kingdom4786@gmail.com" method="POST" class="space-y-6">
+    <div>
+      <label for="name" class="block text-light/80 mb-2">Your Name</label>
+      <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Name Here..." required>
+    </div>
+    <div>
+      <label for="email" class="block text-light/80 mb-2">Your Email</label>
+      <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Email Here..." required>
+    </div>
+    <div>
+      <label for="message" class="block text-light/80 mb-2">Your Message</label>
+      <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Tell Me About Your Project..." required></textarea>
+    </div>
+    <button type="submit" class="btn-primary w-full py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+      Send Message
+    </button>
+  </form>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+<footer class="py-10 border-t border-light/10">
+  <div class="container mx-auto px-6">
+    <div class="text-center text-light/50 text-sm">
+      <p>© 2025 | Developed By <span class="name-gradient">Ali Ahtisham</span> | All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Add Orbitron Font in Head -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  .name-gradient {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;  /* Slightly larger size */
+    font-weight: bold;
+    background: linear-gradient(45deg, #8A2BE2, #DA70D6); /* Purple gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 0 2px; /* Optional: Better spacing */
+  }
+</style>
+  <script>
+    // Project Data with images 
+    const projectsData = [
+      {
+        title: "Mobile App Development",
+        description: "Cross-platform mobile apps using React Native",
+        image: "https://i.pinimg.com/736x/37/46/4c/37464c8520dfe98245083f48f05423fa.jpg",
+        tags: ["development", "mobile"],
+        year: 2025
+      },
+      {
+        title: "Corporate Video Series",
+        description: "Series of training videos for companies",
+        image: "https://i.pinimg.com/736x/77/55/73/775573fa05e5d93593f955ce4f38e5ba.jpg",
+        tags: ["video", "corporate"],
+        year: 2025
+      },
+      {
+        title: "E-commerce Websites",
+        description: "Custom e-commerce platforms built with React, Node.js, and MongoDB",
+        image: "https://i.pinimg.com/736x/98/c0/b0/98c0b01b1a96b26b9703ece48a11d233.jpg",
+        tags: ["development", "web"],
+        year: 2024
+      },
+      {
+        title: "UI/UX Dashboard Design",
+        description: "Modern admin dashboard interface for a SaaS product",
+        image: "https://i.pinimg.com/1200x/de/3f/eb/de3feb20ffc4c5e0b56cc96faaa8469e.jpg",
+        tags: ["design", "ui/ux"],
+        year: 2023
+      },
+      {
+        title: "Product Launch Video",
+        description: "Animated explainer video for new products launch",
+        image: "https://i.pinimg.com/736x/9e/d0/28/9ed02847448681558c5137a8a2f42fd3.jpg",
+        tags: ["video", "animation"],
+        year: 2024
+      },
+      {
+        title: "API Integration Project",
+        description: "Custom API development and third-party service integration",
+        image: "https://i.pinimg.com/736x/a2/4b/f3/a24bf346b214d06cbd3ab4f84f9c2447.jpg",
+        tags: ["development", "backend"],
+        year: 2023
+      },
+      {
+        title: "Social Media Campaign",
+        description: "Complete visual identity for a seasonal marketing campaign",
+        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        tags: ["design", "marketing"],
+        year: 2024
+      },
+      {
+        title: "Brand Identity Redesign",
+        description: "Complete rebranding for a tech startup including logo, color palette, and visual assets",
+        image: "https://i.pinimg.com/736x/4f/05/4c/4f054c305bc1857fbefde88134f3d993.jpg",
+        tags: ["design", "branding"],
+        year: 2024
+      },
+      {
+        title: "Packaging Design",
+        description: "Sustainable packaging solutions for many brands",
+        image: "https://i.pinimg.com/736x/96/c2/38/96c238becbe12cbef82a74362a8806e8.jpg",
+        tags: ["design", "packaging"],
+        year: 2022
+      },
+    ];
+
+    // Initialize variables
+    let visibleProjects = 6;
+    let currentFilter = 'all';
+
+    // Function to render projects
+    function renderProjects(filter = 'all', limit = visibleProjects) {
+      const portfolioGrid = document.getElementById('portfolio-grid');
+      portfolioGrid.innerHTML = '';
+
+      const filteredProjects = filter === 'all' 
+        ? projectsData 
+        : projectsData.filter(project => project.tags.includes(filter));
+
+      const projectsToShow = filteredProjects.slice(0, limit);
+
+      projectsToShow.forEach(project => {
+        const projectCard = document.createElement('div');
+        projectCard.className = 'card bg-dark/50 border border-light/10 rounded-xl overflow-hidden project-item backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-500';
+        projectCard.setAttribute('data-tags', project.tags.join(','));
+        
+        projectCard.innerHTML = `
+          <div class="relative overflow-hidden h-60 group">
+            <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent"></div>
+            <span class="absolute top-4 right-4 bg-primary text-white text-xs font-medium px-3 py-1 rounded-full">${project.year}</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-light mb-2">${project.title}</h3>
+            <p class="text-light/70 mb-4">${project.description}</p>
+            <div class="flex flex-wrap">
+              ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        
+        portfolioGrid.appendChild(projectCard);
+      });
+
+      // Update load more button visibility
+      const loadMoreBtn = document.getElementById('load-more');
+      if (limit >= filteredProjects.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'inline-flex';
+      }
+
+      // Reinitialize animations
+      initProjectAnimations();
+    }
+
+    // Filter projects
+    function filterProjects(filter) {
+      currentFilter = filter;
+      visibleProjects = 6;
+      renderProjects(filter, visibleProjects);
+      
+      // Update active filter button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === filter) {
+          btn.classList.add('bg-primary', 'text-white', 'border-primary');
+          btn.classList.remove('bg-dark/50', 'text-light', 'border-light/10');
+        } else {
+          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+          btn.classList.add('bg-dark/50', 'border-light/10', 'text-light');
+        }
+      });
+    }
+   document.querySelector('.md\\:hidden').addEventListener('click', () => {
+  document.querySelector('.md\\:flex').classList.toggle('hidden');
+    });
+    // Load more projects
+    function loadMoreProjects() {
+      visibleProjects += 3;
+      renderProjects(currentFilter, visibleProjects);
+    }
+
+    // Initialize project animations
+    function initProjectAnimations() {
+      gsap.utils.toArray('.project-item').forEach((item, i) => {
+        gsap.from(item, {
+          opacity: 0,
+          y: 60,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: i * 0.1,
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 90%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    }
+
+    // Animate skill progress bars
+    function animateSkillBars() {
+      gsap.utils.toArray('.progress-bar').forEach(bar => {
+        const width = bar.dataset.width;
+        gsap.to(bar, {
+          width: `${width}%`,
+          duration: 1.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: bar,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    }
+// Add form submission feedback
+const form = document.getElementById('contact-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form)
+    });
+    alert('Message sent successfully!');
+    form.reset();
+  } catch (error) {
+    alert('Failed to send, please try again later');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+  }
+});
+    // Initialize everything when DOM loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render initial projects
+      renderProjects();
+      
+      // Filter button event listeners
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterProjects(btn.dataset.filter);
+        });
+      });
+      
+      // Load more button event listener
+      document.getElementById('load-more').addEventListener('click', loadMoreProjects);
+      
+      // Contact form submission
+      document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! I will get back to you soon.');
+        e.target.reset();
+      });
+      
+      // Navbar scroll effect
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            gsap.to(window, {
+              duration: 1,
+              ease: 'power3.inOut',
+              scrollTo: {
+                y: target,
+                offsetY: 80
+              }
+            });
+          }
+        });
+      });
+      
+      // Animate skill bars
+      animateSkillBars();
+      
+      // Section entrance animations
+      gsap.utils.toArray('.section').forEach(section => {
+        gsap.from(section, {
+          opacity: 0,
+          y: 80,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+      
+      // Card hover effects
+      gsap.utils.toArray('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -10,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+      });
+
+      // Input field focus effects
+      document.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('focus', () => {
+          input.classList.add('ring-2', 'ring-primary/50');
+        });
+        input.addEventListener('blur', () => {
+          input.classList.remove('ring-2', 'ring-primary/50');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
