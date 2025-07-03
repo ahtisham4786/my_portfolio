@@ -698,80 +698,30 @@
             </div>
           </div>
 
-         <div class="bg-dark/50 border border-light/10 rounded-xl p-8 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-500">
-
+          <div class="bg-dark/50 border border-light/10 rounded-xl p-8 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-500">
   <h3 class="text-2xl font-bold mb-6 text-gradient">Send Me a Message</h3>
-
-  <!-- ✅ Updated FORM Starts -->
-  <form id="contact-form" class="space-y-6">
-
+  <form id="contact-form" action="https://usebasin.com/f/13deebd516ab" method="POST" class="space-y-6">
     <div>
       <label for="name" class="block text-light/80 mb-2">Your Name</label>
-      <input type="text" id="name" name="from_name" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Name Here..." required>
+      <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Name Here..." required>
     </div>
-
     <div>
       <label for="email" class="block text-light/80 mb-2">Your Email</label>
-      <input type="email" id="email" name="from_email" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Email Here..." required>
+      <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Enter Your Email Here..." required>
     </div>
-
     <div>
       <label for="message" class="block text-light/80 mb-2">Your Message</label>
       <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-dark/30 border border-light/10 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all duration-300 ease-in-out focus:scale-[1.02] focus:shadow-md focus:shadow-primary/30 input-focus-effect" placeholder="Tell Me About Your Project..." required></textarea>
     </div>
-
-    <button id="send-btn" type="submit" class="btn-primary w-full py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
-      <span id="btn-text">Send Message</span>
-      <span id="check-icon" class="hidden text-green-400 text-2xl animate-ping">✔</span>
+    <button type="submit" class="btn-primary w-full py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+      Send Message
     </button>
-
   </form>
-  <!-- ✅ FORM Ends -->
-
 </div>
         </div>
       </div>
     </div>
   </section>
-<!-- ✅ EmailJS SDK -->
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("OR_trw8o7JzHgn2Dd"); // ✅ Your Public Key
-  })();
-</script>
-
-<!-- ✅ EmailJS Submission Script -->
-<script>
-  const form = document.getElementById('contact-form');
-  const btn = document.getElementById('send-btn');
-  const btnText = document.getElementById('btn-text');
-  const checkIcon = document.getElementById('check-icon');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    btn.disabled = true;
-    btnText.textContent = 'Sending...';
-
-    emailjs.sendForm('service_gww1whg', 'template_v04fdfr', this)
-      .then(function() {
-        btnText.textContent = 'Message Sent!';
-        checkIcon.classList.remove('hidden');
-        checkIcon.classList.add('animate-bounce');
-        form.reset();
-        setTimeout(() => {
-          btn.disabled = false;
-          btnText.textContent = 'Send Message';
-          checkIcon.classList.add('hidden');
-        }, 4000);
-      }, function(error) {
-        alert('❌ Failed to send message. Please try again.');
-        console.error('EmailJS Error:', error);
-        btn.disabled = false;
-        btnText.textContent = 'Send Message';
-      });
-  });
-</script>
 
   <!-- Footer -->
 <footer class="py-10 border-t border-light/10">
