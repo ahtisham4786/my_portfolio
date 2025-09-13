@@ -125,6 +125,20 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Missing animation definitions */
+    .animate-float, .animate-float-delay-2, .animate-float-delay-4, .animate-rotate-slow
+    .animate-float {
+    animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delay-2 {
+   animation: float 6s ease-in-out infinite 0.2s;
+   }
+  .animate-float-delay-4 {
+   animation: float 6s ease-in-out infinite 0.4s;
+    }
+   .animate-rotate-slow {
+   animation: rotate 20s linear infinite;
+    }
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
@@ -149,9 +163,13 @@
       scroll-behavior: smooth;
     }
 
+
     h1, h2, h3, h4 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
+    }
+    .card, .blob, .progress-bar {
+    will-change: transform;
     }
 
     .navbar {
@@ -444,8 +462,8 @@
         <div class="lg:w-1/2 relative">
           <div class="relative group">
             <!-- My image will go here -->
-           <div class="lg:w-1/3 relative">
-  <div class="relative group ml-auto" id="image-container" style="width: fit-content; margin-right: 20px;">
+           <div class="lg:w-1/2 relative">
+         <div class="relative group mx-auto" style="max-width: 400px;">
     <div class="w-[400px] h-[350px] bg-dark/100 rounded-xl shadow-2x1 flex items-center justify-center overflow-hidden">
       <img src="https://i.pinimg.com/736x/67/6d/96/676d9673f2df869b0bcc27347ba8885f.jpg" 
            alt="Ali Ahtisham" 
@@ -889,6 +907,8 @@
       // Reinitialize animations
       initProjectAnimations();
     }
+    // Register ScrollTrigger plugin with GSAP
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     // Filter projects
     function filterProjects(filter) {
