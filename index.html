@@ -248,6 +248,20 @@ crossorigin="anonymous"></script>
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
     }
+ 
+  {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: transform, opacity;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 
     /* New Rating Bar Styles */
     .skill-container {
@@ -866,6 +880,48 @@ crossorigin="anonymous"></script>
     // Initialize variables
     let visibleProjects = 6;
     let currentFilter = 'all';
+
+    // Page load hero animation
+gsap.from(".hero-heading", {
+  opacity: 0,
+  y: 40,
+  duration: 1.2,
+  ease: "power3.out"
+});
+
+// Scroll reveal (optimized, no jank)
+gsap.utils.toArray(".animate").forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: i * 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+        fastScrollEnd: true // prevent lag on fast scroll
+      }
+    }
+  );
+});
+
+// Parallax background / headings
+gsap.utils.toArray(".parallax").forEach(layer => {
+  gsap.to(layer, {
+    yPercent: -20,
+    ease: "none",
+    scrollTrigger: {
+      trigger: layer,
+      scrub: 1,   // smooth inertia
+      invalidateOnRefresh: true
+    }
+  });
+});
+
 
     // Function to render projects
     function renderProjects(filter = 'all', limit = visibleProjects) {
