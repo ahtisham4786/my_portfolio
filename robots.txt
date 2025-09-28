@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /cart/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+Disallow: /*?*
+
+Allow: /
+
+Sitemap: https://aliahtisham.pro/sitemap.xml
+Sitemap: https://www.aliahtisham.pro/sitemap.xml
