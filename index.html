@@ -273,73 +273,63 @@ html {
 }
 
 
-    /* Skill container */
-.skill-container {
-  margin-bottom: 1.5rem;
-}
+    /* New Rating Bar Styles */
+    .skill-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;                                                                                      
+    }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;                                                                                      
-}
-
-.skill-name {
-  color: #f8fafc;
-  font-size: 0.875rem;
-}
-
-.skill-percent {
-  color: #6366f1;
-  font-weight: 500;
-}
-
-/* Progress track */
-.progress-container {
-  height: 8px;
-  background: rgba(248, 250, 252, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-/* Progress bar (GPU optimized with shine) */
-.progress-bar {
-  width: 100%;                         /* full track width */
-  height: 100%;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #6366f1, #a855f7);
-  transform: scaleX(0);                /* start hidden */
-  transform-origin: left center;       /* expand from left */
-  will-change: transform;              /* GPU prep */
-  position: relative;
-}
-
-/* Shine effect */
-.progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  animation: shine 2s infinite;
-}
-
-@keyframes shine {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-    /* Mobile Smoothness */
-
-     @media (max-width: 768px) {
-  .parallax {
-    transform: none !important; /* disable heavy scroll animation */
-  }
-}
+    .skill-name {
+      color: #f8fafc;
+      font-size: 0.875rem;
+    }
+    
+    .skill-percent {
+      color: #6366f1;
+      font-weight: 500;
+    }
+    
+    .progress-container {
+      height: 6px;
+      background: rgba(248, 250, 252, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      position: relative;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      width: 0;
+      transition: width 1.5s ease-out;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      animation: shine 2s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
 
     /* Input focus effect */
     .input-focus-effect:focus {
@@ -820,7 +810,6 @@ html {
     padding: 0 2px; /* Optional: Better spacing */
   }
 </style>
-
   <script>
      // Project Data with images 
     const projectsData = [
@@ -1032,28 +1021,22 @@ gsap.utils.toArray(".parallax").forEach(layer => {
       });
     }
 
-  function animateSkillBars() {
-  gsap.utils.toArray('.progress-bar').forEach((bar, i) => {
-    const width = bar.dataset.width;
-
-    gsap.fromTo(
-      bar,
-      { scaleX: 0 },
-      {
-        scaleX: width / 100,
-        duration: 2.0,
-        ease: "power1.out",
-        delay: i * 0.05,
-        scrollTrigger: {
-          trigger: bar,
-          start: "top 90%",
-          toggleActions: "play none none none"
-        }
-      }
-    );
-  });
-}
-
+    // Animate skill progress bars
+    function animateSkillBars() {
+      gsap.utils.toArray('.progress-bar').forEach(bar => {
+        const width = bar.dataset.width;
+        gsap.to(bar, {
+          width: `${width}%`,
+          duration: 1.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: bar,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    }
 // Add form submission feedback
 const form = document.getElementById('contact-form');
 form.addEventListener('submit', async (e) => {
