@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -811,81 +812,91 @@ html {
   }
 </style>
   <script>
-     // Project Data with images 
-    const projectsData = [
-      {
-        title: "Mobile App Development",
-        description: "Cross-platform mobile apps using React Native",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963690/Mobile_App_Development_x6nhon.webp",
-        tags: ["development", "mobile"],
-        loading:"lazy",
-        year: 2025
-      },
-      {
-        title: "Corporate Video Series",
-        description: "Series of training videos for companies",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963763/Corporate_Video_Series_qdk3hx.webp",
-        tags: ["video", "corporate"],
-        loading:"lazy",
-        year: 2025
-      },
-      {
-        title: "E-commerce Websites",
-        description: "Custom e-commerce platforms built with React, Node.js, and MongoDB",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963820/E-commerce_y5wetz.webp",
-        tags: ["development", "web"],
-        loading:"lazy",
-        year: 2024
-      },
-      {
-        title: "UI/UX Dashboard Design",
-        description: "Modern admin dashboard interface for a SaaS product",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963865/UIUX_Dashboard_Design_enugbu.webp",
-        tags: ["design", "ui/ux"],
-        loading:"lazy",
-        year: 2023
-      },
-      {
-        title: "Product Launch Video",
-        description: "Animated explainer video for new products launch",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963935/Product_Launch_Video_wfl0dr.webp",
-        tags: ["video", "animation"],
-        loading:"lazy",
-        year: 2024
-      },
-      {
-        title: "API Integration Project",
-        description: "Custom API development and third-party service integration",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963966/API_Integration_Project_selyk7.webp",
-        tags: ["development", "backend"],
-        loading:"lazy",
-        year: 2023
-      },
-      {
-        title: "Social Media Campaign",
-        description: "Complete visual identity for a seasonal marketing campaign",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964005/Social_Media_Campaign_frrgil.webp",
-        tags: ["design", "marketing"],
-        loading:"lazy",
-        year: 2024
-      },
-      {
-        title: "Brand Identity Redesign",
-        description: "Complete rebranding for a tech startup including logo, color palette, and visual assets",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964080/Brand_Identity_Redesign_ecayq5.webp",
-        tags: ["design", "branding"],
-        loading:"lazy",
-        year: 2024
-      },
-      {
-        title: "Packaging Design",
-        description: "Sustainable packaging solutions for many brands",
-        image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964114/Packaging_Design_nmq3x7.webp",
-        tags: ["design", "packaging"],
-        loading:"lazy",
-        year: 2022
-      },
-    ];
+     // Project Data with images + alts
+const projectsData = [
+  {
+    title: "Mobile App Development",
+    description: "Cross-platform mobile apps using React Native",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963690/Mobile_App_Development_x6nhon.webp",
+    alt: "Mobile App Development project preview",
+    tags: ["development", "mobile"],
+    loading: "lazy",
+    year: 2025
+  },
+  {
+    title: "Corporate Video Series",
+    description: "Series of training videos for companies",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963763/Corporate_Video_Series_qdk3hx.webp",
+    alt: "Corporate Video Series project thumbnail",
+    tags: ["video", "corporate"],
+    loading: "lazy",
+    year: 2025
+  },
+  {
+    title: "E-commerce Websites",
+    description: "Custom e-commerce platforms built with React, Node.js, and MongoDB",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963820/E-commerce_y5wetz.webp",
+    alt: "E-commerce website design preview",
+    tags: ["development", "web"],
+    loading: "lazy",
+    year: 2024
+  },
+  {
+    title: "UI/UX Dashboard Design",
+    description: "Modern admin dashboard interface for a SaaS product",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963865/UIUX_Dashboard_Design_enugbu.webp",
+    alt: "UI/UX Dashboard Design for SaaS",
+    tags: ["design", "ui/ux"],
+    loading: "lazy",
+    year: 2023
+  },
+  {
+    title: "Product Launch Video",
+    description: "Animated explainer video for new products launch",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963935/Product_Launch_Video_wfl0dr.webp",
+    alt: "Product Launch Explainer Video",
+    tags: ["video", "animation"],
+    loading: "lazy",
+    year: 2024
+  },
+  {
+    title: "API Integration Project",
+    description: "Custom API development and third-party service integration",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758963966/API_Integration_Project_selyk7.webp",
+    alt: "API Integration Project screenshot",
+    tags: ["development", "backend"],
+    loading: "lazy",
+    year: 2023
+  },
+  {
+    title: "Social Media Campaign",
+    description: "Complete visual identity for a seasonal marketing campaign",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964005/Social_Media_Campaign_frrgil.webp",
+    alt: "Social Media Campaign design preview",
+    tags: ["design", "marketing"],
+    loading: "lazy",
+    year: 2024
+  },
+  {
+    title: "Brand Identity Redesign",
+    description: "Complete rebranding for a tech startup including logo, color palette, and visual assets",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964080/Brand_Identity_Redesign_ecayq5.webp",
+    alt: "Brand Identity Redesign sample",
+    tags: ["design", "branding"],
+    loading: "lazy",
+    year: 2024
+  },
+  {
+    title: "Packaging Design",
+    description: "Sustainable packaging solutions for many brands",
+    image: "https://res.cloudinary.com/ddw3f7lx6/image/upload/v1758964114/Packaging_Design_nmq3x7.webp",
+    alt: "Eco-friendly Packaging Design preview",
+    tags: ["design", "packaging"],
+    loading: "lazy",
+    year: 2022
+  },
+];
+
 
     // Initialize variables
     let visibleProjects = 6;
