@@ -1,0 +1,110 @@
+/* animations.css - Performance Optimized Animations */
+
+/* Skill Bar Styles */
+.skill-container {
+  margin-bottom: 1.5rem;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  color: #f8fafc;
+  font-size: 0.875rem;
+}
+
+.skill-percent {
+  color: #6366f1;
+  font-weight: 500;
+}
+
+.progress-container {
+  height: 6px;
+  background: rgba(248, 250, 252, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  width: 0;
+  transition: width 1.5s ease-out;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+/* Keyframes */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay-2 {
+  animation: float 6s ease-in-out infinite 0.2s;
+}
+
+.animate-float-delay-4 {
+  animation: float 6s ease-in-out infinite 0.4s;
+}
+
+.animate-rotate-slow {
+  animation: rotate 20s linear infinite;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar,
+  .progress-bar::after,
+  .blob,
+  .animate-float,
+  .animate-float-delay-2,
+  .animate-float-delay-4,
+  .animate-rotate-slow {
+    animation: none;
+    transition: none;
+  }
+  
+  .progress-bar {
+    transition: width 2s ease-out;
+  }
+}
