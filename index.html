@@ -1191,8 +1191,8 @@ gsap.utils.toArray(".parallax").forEach(layer => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                 </div>
-                <h3 class="text-xl font-bold text-light mb-2">Message Sent!</h3>
-                <p class="text-light/70 mb-4">I'll get back to you within 24 hours.</p>
+              <h3 class="text-xl font-bold text-light mb-2">Got your message! 👍</h3>
+              <p class="text-light/70 mb-4">I'll get back to you within 24 hours.</p>
                 <button onclick="this.closest('.custom-modal').remove()" class="btn-primary w-full py-3 rounded-lg">
                   Continue Browsing
                 </button>
@@ -1204,7 +1204,7 @@ gsap.utils.toArray(".parallax").forEach(layer => {
           form.reset();
           
         } catch (error) {
-          alert('Message failed. Please email me directly at Email');
+        alert('Message didn\'t go through 😅\nPlease try again or email me directly.');
         } finally {
           // Reset button
           submitBtn.disabled = false;
