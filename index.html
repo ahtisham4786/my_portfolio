@@ -1178,7 +1178,12 @@ gsap.utils.toArray(".parallax").forEach(layer => {
           if (existingModal) existingModal.remove();
           
           // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1500));
+         const formData = new FormData(form);
+    
+         const response = await fetch('https://usebasin.com/f/13deebd516ab', {
+        method: 'POST',
+         body: formData
+             });
           
           // Create success modal
           const modal = document.createElement('div');
