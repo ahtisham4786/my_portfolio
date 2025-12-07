@@ -7,6 +7,38 @@
   <link rel="icon" type="image/png" href="/abc.png" />
   <!-- Animation Css --->
   <link rel="stylesheet" href="animations.css">
+  <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- iOS & Apple Touch Icons -->
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/ddw3f7lx6/image/upload/v1759930272/My_Image_2_xknrq2.webp">
+<meta name="apple-mobile-web-app-title" content="Ali Ahtisham">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Windows & Microsoft -->
+<meta name="msapplication-TileColor" content="#6366f1">
+<meta name="msapplication-TileImage" content="https://res.cloudinary.com/ddw3f7lx6/image/upload/v1759930272/My_Image_2_xknrq2.webp">
+<meta name="msapplication-config" content="/browserconfig.xml">
+
+<!-- Theme Color for Browsers -->
+<meta name="theme-color" content="#6366f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+
+<!-- PWA Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registration successful');
+        })
+        .catch(function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+  }
+</script>
 <!-- ULTIMATE SEO & SCHEMA CODE-->
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -346,6 +378,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Performance Hints -->
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+  <!-- Canonical URL -->
+<link rel="canonical" href="https://aliahtisham.pro">
+  
   <style>
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
