@@ -120,16 +120,6 @@ SEO Optimization | PWA Development | REST APIs | Form Handling
 - Corporate videos
 - Social media content
 
-## 📁 Project Structure
-```
-portfolio/
-├── index.html          # Main portfolio file
-├── CSS/
-│   └── custom.css     # Custom styles
-├── Images/            # Optimized images
-└── Scripts/          # JavaScript files
-```
-
 ## ⚡ Quick Setup
 
 ### **View Portfolio Online**
