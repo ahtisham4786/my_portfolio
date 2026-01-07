@@ -88,7 +88,7 @@ SEO Optimization | PWA Development | REST APIs | Form Handling
 
 ### **Professional Profiles**
 - **Portfolio**: [aliahtisham.pro](https://aliahtisham.pro)
-- **GitHub**: [github.com/aliahtisham](https://github.com/aliahtisham)
+- **GitHub**: [github.com/aliahtisham](https://github.com/aliahtisham4786)
 - **LinkedIn**: [linkedin.com/in/aliahtisham](https://linkedin.com/in/aliahtisham)
 
 ## 🏆 Client Testimonials
