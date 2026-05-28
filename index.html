@@ -564,6 +564,67 @@ html {
       font-size: 0.875rem;
       color: rgba(248, 250, 252, 0.7);
     }
+    
+/* Professional Scroll Arrow - Without Circle */
+.scroll-arrow {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: block;
+  cursor: pointer;
+  animation: floatArrow 2.5s ease-in-out infinite;
+}
+
+.scroll-arrow a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-arrow svg {
+  width: 28px;
+  height: 28px;
+  stroke: #6366f1;
+  stroke-width: 2.2;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.4));
+}
+
+.scroll-arrow a:hover svg {
+  stroke: #a855f7;
+  transform: translateY(4px);
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .scroll-arrow { bottom: 50px; }
+  .scroll-arrow svg { width: 30px; height: 30px; }
+}
+
+/* Laptop & Desktop */
+@media (min-width: 1025px) {
+  .scroll-arrow { bottom: 55px; }
+  .scroll-arrow svg { width: 32px; height: 32px; }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .scroll-arrow { bottom: 35px; }
+  .scroll-arrow svg { width: 24px; height: 24px; }
+}
+
+@keyframes floatArrow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(12px);
+  }
+}
   </style>
 </head>
 <body class="antialiased">
@@ -629,13 +690,13 @@ html {
         </a>
       </div>
     </div>
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <a href="#about" class="text-light/50 hover:text-primary transition-colors duration-300">
-        <svg class="w-8 h-8 hidden lg:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-</svg>
-      </a>
-    </div>
+    <div class="scroll-arrow">
+  <a href="#about">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </a>
+</div>
   </section>
 
   <!-- About Section -->
